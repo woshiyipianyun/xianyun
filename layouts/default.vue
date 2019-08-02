@@ -10,11 +10,13 @@
 //导入头部公共组件
 import Header from "@/components/header.vue";
 import Footer from "@/components/footer.vue";
+import LoginForm from "@/components/footer.vue";
 export default {
   //注册组件
   components: {
     Header,
-    Footer
+    Footer,
+    LoginForm
   }
 };
 </script>

@@ -18,29 +18,23 @@
           <nuxt-link to="/air">国内机票</nuxt-link>
         </el-row>
 
-        <!-- 登陆之后的个人中心 -->
-        <div class="message">
+        <!-- 登录注册 -->
+        <div v-if="!$store.state.user.userInfo.token">
+          <!-- <router-link to="/"></router-link>     -->
+          <nuxt-link to="/user/login">登录注册</nuxt-link>
+        </div>
+        <!-- 登录之后的布局 -->
+        <div v-else>
           <el-dropdown>
             <span class="el-dropdown-link">
-              <i class="el-icon-message-solid"></i>
-              消息
-              <i class="el-icon-arrow-down"></i>
+              <img src="http://157.122.54.189:9095/assets/images/avatar.jpg" alt />
+              银河抽水机
+              <i class="el-icon-arrow-down el-icon--right"></i>
             </span>
-            <!-- 注册登陆 -->
-            <span v-show="true">
-              <nuxt-link to="/user/login">登陆/注册</nuxt-link>
-            </span>
-            <!-- 登录之后 -->
-            <span v-show="false">
-              <nuxt-link to="/">个人中心</nuxt-link>
-              <nuxt-link to="/user/login">退出</nuxt-link>
-            </span>
+
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>黄金糕</el-dropdown-item>
-              <el-dropdown-item>狮子头</el-dropdown-item>
-              <el-dropdown-item>螺蛳粉</el-dropdown-item>
-              <el-dropdown-item disabled>双皮奶</el-dropdown-item>
-              <el-dropdown-item divided>蚵仔煎</el-dropdown-item>
+              <el-dropdown-item>个人中心</el-dropdown-item>
+              <el-dropdown-item @click.native="handleLogout">退出</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
@@ -50,7 +44,19 @@
 </template>
  
 <script>
-export default {};
+export default {
+  data() {
+    return {};
+  },
+  methods: {
+    //退出的点击事件
+    handleLogout() {
+      //清除userInfo数据退出
+      //调用mutations的方法必须使用commit方法调用
+      this.$store.commit("user/clearUserInfo");
+    }
+  }
+};
 </script>
 <style lang="less" scoped>
 .header {
@@ -86,9 +92,15 @@ export default {};
     .nuxt-link-exact-active {
       background: #409eff;
     }
-    .message {
-      vertical-align: middle;
-    }
+  }
+}
+.el-dropdown-link {
+  img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-right: 5px;
   }
 }
 </style>

@@ -55,7 +55,9 @@ export default {
             //第二个参数是传递的数据
             this.$store.commit("user/setUserInfo", res1.data);
             //跳转登陆到首页
-            this.$router.push("/");
+            // this.$router.push("/");
+            //返回上一页
+            this.$router.back();
           });
         }
       });

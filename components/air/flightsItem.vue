@@ -11,14 +11,14 @@
           <el-row type="flex" justify="space-between" class="flight-info-center">
             <el-col :span="8" class="flight-airport">
               <strong>{{data.dep_time}}</strong>
-              <span>{{data.dst_airport_name}}{{data.dst_airport_quay}}</span>
+              <span>{{data.org_airport_name}}{{data.dst_airport_quay}}</span>
             </el-col>
             <el-col :span="8" class="flight-time">
               <span>{{rankTime}}</span>
             </el-col>
             <el-col :span="8" class="flight-airport">
               <strong>{{data.arr_time}}</strong>
-              <span>{{data.org_airport_name}}{{data.org_airport}}</span>
+              <span>{{data.dst_airport_name}}{{data.org_airport}}</span>
             </el-col>
           </el-row>
         </el-col>
@@ -47,7 +47,7 @@
             </el-col>
             <el-col :span="5" class="price">￥{{item.org_settle_price}}</el-col>
             <el-col :span="3" class="choose-button">
-              <el-button type="warning" size="mini">选定</el-button>
+              <el-button type="warning" size="mini" @click="handleToLink(data.id,item.seat_xid)">选定</el-button>
               <p>剩余：{{item.discount}}</p>
             </el-col>
           </el-row>
@@ -75,6 +75,18 @@ export default {
     return {
       isShow: false
     };
+  },
+  methods: {
+    //跳转订单页面
+    handleToLink(id, seat_xid) {
+      this.$router.push({
+        path: "/air/order",
+        query: {
+          id,
+          seat_xid
+        }
+      });
+    }
   },
   computed: {
     //计算航班相隔时间
